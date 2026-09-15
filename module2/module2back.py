@@ -73,19 +73,19 @@ publish = node.create_publisher(Twist, "/RMC2/cmd_vel", 10)
 
 forward = Twist()
 stop = Twist()
-forward.linear.x = 0.1
+forward.linear.x = -0.1
 
 def main():
-    print("Введите сколько секунд ровер должен проехать вперед(10сек = 1метр)")
+    print("Введите сколько секунд ровер должен проехать назад(10сек = 1метр)")
     # time.sleep(1)
     TIME = int(input())
     print("Началось выполение миссии")
     print(f"Mission start")
-    
+   
     try:
         endtime = time.monotonic() + TIME
         while time.monotonic() < endtime:
-            print("Ровер начал движение вперед")
+            print("Ровер движется назад")
             publish.publish(forward)
             time.sleep(0.1)
     finally:
@@ -96,7 +96,7 @@ def main():
 if __name__ == '__main__':
     main()
 
-print(f"Ровер прехал вперед и полностью остановлен и ждет приграды")
+print(f"Ровер прехал назад и полностью остановлен и ждет приграды")
 print(f"Mission finish")
 rclpy.shutdown()
 node.destroy_node()
