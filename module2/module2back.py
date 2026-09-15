@@ -96,6 +96,7 @@ def main():
         while time.monotonic() < endtime:
             print("Ровер движется назад")
             publish_cmdvel.publish(forward)
+            logging.debug(f"{current_time}: RMC2 movement to back")
             time.sleep(0.1)
     finally:
         for _ in range(5):
