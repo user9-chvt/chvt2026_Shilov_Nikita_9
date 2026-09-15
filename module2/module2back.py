@@ -96,7 +96,7 @@ def main():
 if __name__ == '__main__':
     main()
 
-print(f"Ровер прехал назад и полностью остановлен и ждет приграды")
+print(f"Ровер прехал назад и полностью остановлен - mission finished")
 print(f"movement_stop")
 rclpy.shutdown()
 node.destroy_node()

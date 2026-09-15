@@ -97,6 +97,7 @@ if __name__ == '__main__':
     main()
 
 print(f"Ровер прехал вперед и полностью остановлен и ждет приграды")
+print(f"Можно запускать скрипт на обратный путь, python3 module2/module2back.py")
 print(f"movement_stop")
 rclpy.shutdown()
 node.destroy_node()
