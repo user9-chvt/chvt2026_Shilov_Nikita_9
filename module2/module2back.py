@@ -67,6 +67,14 @@ from geometry_msgs.msg import Twist
 # if __name__ == '__main__':
 #     main()
 
+import logging
+from datetime import datetime
+
+current_time = datetime.now()
+
+logging.basicConfig(filename="logs_last_mission_back.txt", level=logging.DEBUG)
+
+
 rclpy.init()
 node = rclpy.create_node("rover2")
 publish_cmdvel = node.create_publisher(Twist, "/RMC2/cmd_vel", 10)
@@ -81,6 +89,7 @@ def main():
     TIME = int(input())
     print("Началось выполение миссии")
     print(f"movement_start")
+    logging.debug(f"{time.localtime}: movement_start")
    
     try:
         endtime = time.monotonic() + TIME
@@ -98,5 +107,7 @@ if __name__ == '__main__':
 
 print(f"Ровер прехал назад и полностью остановлен - mission finished")
 print(f"movement_stop")
+logging.debug(f"{time.localtime}: movement_stop")
+
 rclpy.shutdown()
 node.destroy_node()
