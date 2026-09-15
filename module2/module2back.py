@@ -69,7 +69,7 @@ from geometry_msgs.msg import Twist
 
 rclpy.init()
 node = rclpy.create_node("rover2")
-publish = node.create_publisher(Twist, "/RMC2/cmd_vel", 10)
+publish_cmdvel = node.create_publisher(Twist, "/RMC2/cmd_vel", 10)
 
 forward = Twist()
 stop = Twist()
@@ -80,23 +80,23 @@ def main():
     # time.sleep(1)
     TIME = int(input())
     print("Началось выполение миссии")
-    print(f"Mission start")
+    print(f"movement_start")
    
     try:
         endtime = time.monotonic() + TIME
         while time.monotonic() < endtime:
             print("Ровер движется назад")
-            publish.publish(forward)
+            publish_cmdvel.publish(forward)
             time.sleep(0.1)
     finally:
         for _ in range(5):
-            publish.publish(stop)
+            publish_cmdvel.publish(stop)
             time.sleep(0.1)
 
 if __name__ == '__main__':
     main()
 
 print(f"Ровер прехал назад и полностью остановлен и ждет приграды")
-print(f"Mission finish")
+print(f"movement_stop")
 rclpy.shutdown()
 node.destroy_node()
