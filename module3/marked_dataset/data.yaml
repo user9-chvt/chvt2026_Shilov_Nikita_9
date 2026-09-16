@@ -1,7 +1,7 @@
 task: detect
 mode: train
 
-model: tolov11n
+model: yolov11n
 data: ./classes.txt
 
 val: ./val
