@@ -16,7 +16,7 @@ from geometry_msgs.msg import Twist
 from flask import Flask
 
 app = Flask("__name__")
-PORT = 3000
+PORT = 5000
 
 import logging
 from datetime import datetime
@@ -30,7 +30,7 @@ logging.basicConfig(filename="logs_last_mission_forward.txt", level=logging.DEBU
 
 @app.after_request
 def cors(request):
-    request.headers["ALLOW_CONTROL_ACCESS_ORIGIN"]
+    request.headers["ACCESS_CONTROL_ALLOW_ORIGIN"] = "*"
     return(request)
 
 @app.post("/api/forward")
@@ -52,7 +52,6 @@ def forward():
             publish_cmdvel.publish(stop)
             time.sleep(0.1)
 
-if __name__ == '__main__':
-    app.run(port=PORT)
-    forward()
 
+if __name__ == '__main__':
+    app.run(debug=True ,port=PORT)
