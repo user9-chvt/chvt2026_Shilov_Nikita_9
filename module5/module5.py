@@ -54,6 +54,8 @@ def main():
     time.sleep(1)
     print("Миссия РМС2 Началась...")
     logging.debug(f"{time.localtime}: МИССИЯ RMC2 НАЧАЛАСЬ")
+    print("РМС2 начал ехать в зону комплектации...")
+    logging.debug(f"{time.localtime}: РМС2 начал ехать в зону комплектации...")
 
     TIME = 21
 
@@ -70,11 +72,18 @@ def main():
             time.sleep(0.1)
     finally:
         for _ in range(5):
+            print("RMC2 Прибыл в зону комплектации...")
+            logging.debug(f"{time.localtime}: RMC2 Прибыл в зону комплектации")
             publish_cmdvel_RMC2.publish(stop)
             time.sleep(0.1)
 
     init_x_rmc1= 5.0
     init_y_rmc1 = 0.0
+
+    print("RMC2 Прибыл в зону комплектации...")
+    logging.debug(f"{time.localtime}: RMC2 Прибыл в зону комплектации")
+
+    time.sleep(2)
 
     print("RMC2 в зоне поворота")
     logging.debug(f"{time.localtime}: RMC2 в зоне поворота")
@@ -129,8 +138,7 @@ def main():
     #     print('Goal failed!')
 
     # nav.lifecycleShutdown()                   # Корректное завершение работы навигации
-    
-    
+        
     print("RMC1 staring...")
     print(f"movement_start")
     logging.debug(f"{time.localtime}: RMC1 Начал свое движение")
@@ -147,9 +155,16 @@ def main():
     finally:
         for _ in range(5):
             logging.debug(f"{time.localtime}: RMC1 остановился")
+            logging.debug(f"{time.localtime}: RMC1 в зоне поворота")
             print("RMC1 в зоне поворота")
             publish_cmdvel_RMC1.publish(stop)
+            print("RMC1 Прибыл в зону комплектации...")
+            logging.debug(f"{time.localtime}: RMC1 Прибыл в зону комплектации")
             time.sleep(0.1)
+
+    print("RMC1 Прибыл в зону комплектации...")
+    logging.debug(f"{time.localtime}: RMC1 Прибыл в зону комплектации")
+    time.sleep(1)
 
     print("function: 'yaw' not found")
     logging.debug(f"{time.localtime}: function: 'yaw' not found")
