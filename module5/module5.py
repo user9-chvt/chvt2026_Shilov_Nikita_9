@@ -33,7 +33,8 @@ def main():
     node = rclpy.create_node("rover2")
     nav = BasicNavigator(namespace='/RMC1')  # Создание экземпляра контроллера в неймспейсе робота
 
-    publish_cmdvel = node.create_publisher(Twist, "/RMC2/cmd_vel", 10)
+    publish_cmdvel_RMC2 = node.create_publisher(Twist, "/RMC2/cmd_vel", 10)
+    publish_cmdvel_RMC1 = node.create_publisher(Twist, "/RMC1/cmd_vel", 10)
 
     forward = Twist()
     stop = Twist()
@@ -42,10 +43,16 @@ def main():
     back.linear.x = -0.1
 
     print("MISSION_START")
+    logging.debug(f"{time.localtime}: МИССИЯ НАЧАЛАСЬ")
+
     time.sleep(1)
-    input("Введите нужный стеллаж для RMC2:")
-    input("Введите нужный инстурмент для RMC1:")
+
+    shltr1 = input("Введите нужный стеллаж для RMC1(левый = 1 правый = 2):")
+    shltr2 = input("Введите нужный стеллаж для RMC2(левый = 1 правый = 2):")
+    tool = input("Введите нужный инструмент для RMC1:")
+
     print("Миссия РМС2 Началась...")
+    logging.debug(f"{time.localtime}: МИССИЯ RMC1 НАЧАЛАСЬ")
 
     TIME = 21
 
@@ -55,31 +62,31 @@ def main():
         endtime = time.monotonic() + TIME
         while time.monotonic() < endtime:
             print("RMC2 move forward...")
-            publish_cmdvel.publish(forward)
+            publish_cmdvel_RMC2.publish(forward)
             logging.debug(f"{current_time}: RMC2 movement to forward")
+            logging.debug("ArUco: null")
             time.sleep(0.1)
     finally:
         for _ in range(5):
-            publish_cmdvel.publish(stop)
+            publish_cmdvel_RMC2.publish(stop)
             time.sleep(0.1)
 
     init_x_rmc1= 5.0
     init_y_rmc1 = 0.0
 
     print("RMC2 в зоне поворота")
+    logging.debug(f"{time.localtime}: RMC2 в зоне поворота")
 
     init_pose = make_pose(nav, init_x_rmc1, init_y_rmc1)
     goal_pose = make_pose(nav, 1.0, 3.0)
-
-    print("RMC1 staring...")
 
     time.sleep(1)
     # nav.setInitialPose(init_pose)             # Задание исходной позиции
     # nav.waitUntilNav2Active()                 # Ждём, пока стек навигации полностью поднимется
 
-    print("RMC1_stop")
+    # print("RMC1_stop")
 
-    print("waiting RMC1...")
+    # print("waiting RMC1...")
 
     time.sleep(5)
 
@@ -89,12 +96,15 @@ def main():
         endtime = time.monotonic() + TIME
         while time.monotonic() < endtime:
             print("RMC2 move back...")
-            publish_cmdvel.publish(back)
+            publish_cmdvel_RMC2.publish(back)
             logging.debug(f"{current_time}: RMC2 movement to forward")
+            logging.debug("ArUco: null")
+            logging.debug("ArUco: null")
             time.sleep(0.1)
     finally:
         for _ in range(5):
-            publish_cmdvel.publish(stop)
+            logging.debug(f"{time.localtime}: RMC2 остановился")
+            publish_cmdvel_RMC2.publish(stop)
             time.sleep(0.1)
     # time.sleep(3.0)                           # Пауза перед постановкой цели
 
@@ -113,6 +123,45 @@ def main():
     #     print('Goal failed!')
 
     # nav.lifecycleShutdown()                   # Корректное завершение работы навигации
+    
+    
+    print("RMC1 staring...")
+    print(f"movement_start")
+    logging.debug(f"{time.localtime}: RMC1 Начал свое движение")
+    logging.debug(f"{time.localtime}: movement_start")
+    try:
+        endtime = time.monotonic() + TIME
+        while time.monotonic() < endtime:
+            print("RMC1 move forward...")
+            publish_cmdvel_RMC1.publish(forward)
+            logging.debug(f"{current_time}: RMC1 movement to forward")
+            logging.debug("ArUco: null")
+            time.sleep(0.1)
+    finally:
+        for _ in range(5):
+            logging.debug(f"{time.localtime}: RMC1 остановился")
+            publish_cmdvel_RMC1.publish(stop)
+            time.sleep(0.1)
+
+
+    time.sleep(5)
+
+    print(f"RMC1 back home")
+    logging.debug(f"{time.localtime}: movement_start")
+    try:
+        endtime = time.monotonic() + TIME
+        while time.monotonic() < endtime:
+            print("RMC1 move back...")
+            publish_cmdvel_RMC1.publish(back)
+            logging.debug(f"{current_time}: RMC1 movement to back")
+            logging.debug("ArUco: null")
+            time.sleep(0.1)
+    finally:
+        for _ in range(5):
+            publish_cmdvel_RMC1.publish(stop)
+            time.sleep(0.1)
+    
+    logging.debug(f"{time.localtime}: МИССИЯ ЗАВЕРШИЛАСЬ")
     print("MISSION_FINISH")
     rclpy.shutdown()
 
