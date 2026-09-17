@@ -38,13 +38,16 @@ def main():
     forward = Twist()
     stop = Twist()
     forward.linear.x = 0.1
+    back = Twist()
+    back.linear.x = -0.1
 
     print("MISSION_START")
     time.sleep(1)
     input("Введите нужный стеллаж для RMC2:")
     print("Миссия РМС2 Началась...")
 
-    TIME = 10.6
+    TIME = 21
+
     print(f"movement_start")
     logging.debug(f"{time.localtime}: movement_start")
     try:
@@ -68,13 +71,26 @@ def main():
     input("Введите нужный инстурмент для RMC1:")
     print("RMC1 staring...")
 
-    print("RMC1")
-
     time.sleep(1)
     # nav.setInitialPose(init_pose)             # Задание исходной позиции
     # nav.waitUntilNav2Active()                 # Ждём, пока стек навигации полностью поднимется
 
-    time.sleep(3.0)                           # Пауза перед постановкой цели
+    print("RMC1 stop")
+
+    print(f"RMC2 back home")
+    logging.debug(f"{time.localtime}: movement_start")
+    try:
+        endtime = time.monotonic() + TIME
+        while time.monotonic() < endtime:
+            print("Ровер начал движение вперед")
+            publish_cmdvel.publish(back)
+            logging.debug(f"{current_time}: RMC2 movement to forward")
+            time.sleep(0.1)
+    finally:
+        for _ in range(5):
+            publish_cmdvel.publish(stop)
+            time.sleep(0.1)
+    # time.sleep(3.0)                           # Пауза перед постановкой цели
 
     # nav.goToPose(goal_pose)                   # Задать роботу целевую позицию
     # while not nav.isTaskComplete():           # Цикл ожидания выполнения задачи
