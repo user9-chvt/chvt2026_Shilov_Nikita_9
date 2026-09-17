@@ -9,6 +9,13 @@ function App() {
   //   )
   // }
   // const [count, setCount] = useState(0)
+
+  function forward() {
+    fetch("http://localhost:8000/api/forward", {
+      method: "POST"
+    })
+  }
+
   return (
     <>
       <section className='m-0 h-100 w-auto bg-gray-100 mb-40'>
@@ -17,7 +24,7 @@ function App() {
         <div className='m-10 bg-amber-100 h-100 border-4'>
           <h1 className='m-5 ps-3 text-2xl'>Управление РМС2:</h1>
 
-          <button className='hover:bg-amber border-2 bg-amber-400 rounded-[5px] text-xl p-2 ms-8 hover:bg-amber-300 active:bg-amber-500'>Проехать вперед</button>{/* forward */}
+          <button className='hover:bg-amber border-2 bg-amber-400 rounded-[5px] text-xl p-2 ms-8 hover:bg-amber-300 active:bg-amber-500' onClick={forward}>Проехать вперед</button>{/* forward */}
 
           <h2 className='ms-8 mt-5 text-xl'>Заряд батареи в вольтах:</h2>
 
