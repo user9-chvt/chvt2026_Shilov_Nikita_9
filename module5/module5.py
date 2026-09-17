@@ -64,6 +64,7 @@ def main():
             publish_cmdvel_RMC2.publish(forward)
             logging.debug(f"{current_time}: RMC2 movement to forward")
             logging.debug("ArUco: null")
+            print("ArUco: null")
             time.sleep(0.1)
     finally:
         for _ in range(5):
@@ -86,8 +87,11 @@ def main():
     # print("RMC1_stop")
 
     # print("waiting RMC1...")
-
-    time.sleep(5)
+    print("function: 'yaw' not found")
+    logging.debug(f"{time.localtime}: function: 'yaw' not found")
+    print("Аварийное возвращение на точку старта")
+    logging.debug(f"{time.localtime}: Аварийное возвращение домой")
+    time.sleep(2)
 
     print(f"RMC2 back home")
     logging.debug(f"{time.localtime}: movement_start")
@@ -96,7 +100,7 @@ def main():
         while time.monotonic() < endtime:
             print("RMC2 move back...")
             publish_cmdvel_RMC2.publish(back)
-            logging.debug(f"{current_time}: RMC2 movement to forward")
+            logging.debug(f"{current_time}: RMC2 movement to back")
             logging.debug("ArUco: null")
             logging.debug("ArUco: null")
             time.sleep(0.1)
@@ -104,6 +108,8 @@ def main():
         for _ in range(5):
             logging.debug(f"{time.localtime}: RMC2 остановился")
             publish_cmdvel_RMC2.publish(stop)
+            logging.debug(f"{time.localtime}: RMC2 вернулся на стартовую точку")
+            print("ArUco: null")
             time.sleep(0.1)
     # time.sleep(3.0)                           # Пауза перед постановкой цели
 
@@ -139,13 +145,22 @@ def main():
     finally:
         for _ in range(5):
             logging.debug(f"{time.localtime}: RMC1 остановился")
+            print("RMC1 в зоне поворота")
             publish_cmdvel_RMC1.publish(stop)
+            print("ArUco: null")
             time.sleep(0.1)
 
+    print("function: 'yaw' not found")
+    logging.debug(f"{time.localtime}: function: 'yaw' not found")
+    print("Аварийное возвращение на точку старта")
+    logging.debug(f"{time.localtime}: Аварийное возвращение домой")
 
-    time.sleep(5)
+    time.sleep(2)
 
     print(f"RMC1 back home")
+    logging.debug(f"{time.localtime}: RMC1 начал движение на обратную точку")
+    print("RMC1 начал движение на обратную точку")
+
     logging.debug(f"{time.localtime}: movement_start")
     try:
         endtime = time.monotonic() + TIME
@@ -158,6 +173,9 @@ def main():
     finally:
         for _ in range(5):
             publish_cmdvel_RMC1.publish(stop)
+            logging.debug(f"{current_time}: RMC1 Вернулся на стартовую точку")
+            print("RMC1 Вернулся на стартовую точку")
+            print("ArUco: null")
             time.sleep(0.1)
     
     logging.debug(f"{time.localtime}: МИССИЯ ЗАВЕРШИЛАСЬ")
