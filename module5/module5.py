@@ -201,6 +201,7 @@ def main():
     logging.debug(f"{time.localtime}: МИССИЯ ЗАВЕРШИЛАСЬ")
     print("MISSION_FINISH")
     rclpy.shutdown()
+    #last
 
 
 if __name__ == '__main__':
