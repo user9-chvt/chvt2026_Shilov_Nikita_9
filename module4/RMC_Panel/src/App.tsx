@@ -19,10 +19,10 @@ function App() {
   return (
     <>
       <section className='m-0 h-100 w-auto bg-gray-100 mb-40'>
-        <h1 className='bg-amber-200 border-b-2 ps-5 p-2'>Панель для Управления RMC</h1>
+        <h1 className='bg-amber-200 border-b-2 ps-5 p-2'>Панель для Управления РМК1 и РМК2</h1>
 
         <div className='m-10 bg-amber-100 h-100 border-4'>
-          <h1 className='m-5 ps-3 text-2xl'>Управление РМС2:</h1>
+          <h1 className='m-5 ps-3 text-2xl'>Управление РМК2:</h1>
 
           <button className='hover:bg-amber border-2 bg-amber-400 rounded-[5px] text-xl p-2 ms-8 hover:bg-amber-300 active:bg-amber-500' onClick={forward}>Проехать вперед</button>{/* forward */}
           <button className='hover:bg-amber border-2 border-red-500 bg-amber-400 rounded-[5px] text-xl p-2 ms-8 hover:bg-amber-300 active:bg-amber-500 mt-15'>Аварийная Остановка</button>
@@ -34,7 +34,7 @@ function App() {
 
       <section className='h-100 w-auto bg-gray-100 mb-40'>
         <div className='mt-10 m-10 bg-amber-100 h-100 border-4'>
-          <h1 className='m-5 ps-3 text-2xl'>Управление РМС1:</h1>
+          <h1 className='m-5 ps-3 text-2xl'>Управление РМК1:</h1>
 
           <button className='hover:bg-amber border-2 bg-amber-400 rounded-[5px] text-xl p-2 ms-8 hover:bg-amber-300 active:bg-amber-500' onClick={forward}>Проехать вперед</button>{/* forward */}
           <button className='hover:bg-amber border-2 border-red-500 bg-amber-400 rounded-[5px] text-xl p-2 ms-8 hover:bg-amber-300 active:bg-amber-500 mt-15'>Аварийная Остановка</button>
