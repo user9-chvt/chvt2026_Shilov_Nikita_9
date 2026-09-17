@@ -53,7 +53,7 @@ def main():
     print("MISSION_START")
     time.sleep(1)
     print("Миссия РМС2 Началась...")
-    logging.debug(f"{time.localtime}: МИССИЯ RMC1 НАЧАЛАСЬ")
+    logging.debug(f"{time.localtime}: МИССИЯ RMC2 НАЧАЛАСЬ")
 
     TIME = 21
 
