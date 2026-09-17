@@ -46,9 +46,9 @@ def main():
 
     time.sleep(1)
 
-    shltr1 = input("Введите нужный стеллаж для RMC1(левый = 1 правый = 2):")
+    shltr1 = input("Введите нужный стеллаж(21/23) для RMC1(левый = 1 правый = 2):")
     shltr2 = input("Введите нужный стеллаж для RMC2(левый = 1 правый = 2):")
-    tool = input("Введите нужный инструмент для RMC1:")
+    tool = input("Введите нужный инструмент(Knive, Brash, Pliers) для RMC1:")
 
     print("MISSION_START")
     time.sleep(1)
