@@ -52,8 +52,6 @@ def main():
 
     print("MISSION_START")
     time.sleep(1)
-    print("Миссия РМС2 Началась...")
-    logging.debug(f"{time.localtime}: МИССИЯ RMC2 НАЧАЛАСЬ")
     print("РМС2 начал ехать в зону комплектации...")
     logging.debug(f"{time.localtime}: РМС2 начал ехать в зону комплектации...")
 
@@ -73,7 +71,9 @@ def main():
     finally:
         for _ in range(5):
             print("RMC2 Прибыл в зону комплектации...")
-            logging.debug(f"{time.localtime}: RMC2 Прибыл в зону комплектации")
+            logging.debug(f"{time.localtime}: RMC2 остановился")
+            logging.debug(f"{time.localtime}: RMC2 в зоне поворота")
+            print("RMC2 в зоне поворота")
             publish_cmdvel_RMC2.publish(stop)
             time.sleep(0.1)
 
@@ -141,6 +141,10 @@ def main():
         
     print("RMC1 staring...")
     print(f"movement_start")
+
+    print("РМС1 начал ехать в зону комплектации...")
+    logging.debug(f"{time.localtime}: РМС1 начал ехать в зону комплектации...")
+
     logging.debug(f"{time.localtime}: RMC1 Начал свое движение")
     logging.debug(f"{time.localtime}: movement_start")
     try:
