@@ -50,6 +50,8 @@ def main():
     shltr2 = input("Введите нужный стеллаж для RMC2(левый = 1 правый = 2):")
     tool = input("Введите нужный инструмент для RMC1:")
 
+    print("MISSION_START")
+    time.sleep(1)
     print("Миссия РМС2 Началась...")
     logging.debug(f"{time.localtime}: МИССИЯ RMC1 НАЧАЛАСЬ")
 
@@ -63,8 +65,8 @@ def main():
             print("RMC2 move forward...")
             publish_cmdvel_RMC2.publish(forward)
             logging.debug(f"{current_time}: RMC2 movement to forward")
-            logging.debug("ArUco: null")
-            print("ArUco: null")
+            logging.debug("ArUco: Null")
+            print("ArUco: Null")
             time.sleep(0.1)
     finally:
         for _ in range(5):
@@ -101,15 +103,14 @@ def main():
             print("RMC2 move back...")
             publish_cmdvel_RMC2.publish(back)
             logging.debug(f"{current_time}: RMC2 movement to back")
-            logging.debug("ArUco: null")
-            logging.debug("ArUco: null")
+            logging.debug("ArUco: Null")
+            print("ArUco: Null")
             time.sleep(0.1)
     finally:
         for _ in range(5):
             logging.debug(f"{time.localtime}: RMC2 остановился")
             publish_cmdvel_RMC2.publish(stop)
             logging.debug(f"{time.localtime}: RMC2 вернулся на стартовую точку")
-            print("ArUco: null")
             time.sleep(0.1)
     # time.sleep(3.0)                           # Пауза перед постановкой цели
 
@@ -140,14 +141,14 @@ def main():
             print("RMC1 move forward...")
             publish_cmdvel_RMC1.publish(forward)
             logging.debug(f"{current_time}: RMC1 movement to forward")
-            logging.debug("ArUco: null")
+            logging.debug("ArUco: Null")
+            print("ArUco: Null")
             time.sleep(0.1)
     finally:
         for _ in range(5):
             logging.debug(f"{time.localtime}: RMC1 остановился")
             print("RMC1 в зоне поворота")
             publish_cmdvel_RMC1.publish(stop)
-            print("ArUco: null")
             time.sleep(0.1)
 
     print("function: 'yaw' not found")
@@ -168,14 +169,14 @@ def main():
             print("RMC1 move back...")
             publish_cmdvel_RMC1.publish(back)
             logging.debug(f"{current_time}: RMC1 movement to back")
-            logging.debug("ArUco: null")
+            logging.debug("ArUco: Null")
+            print("ArUco: Null")
             time.sleep(0.1)
     finally:
         for _ in range(5):
             publish_cmdvel_RMC1.publish(stop)
             logging.debug(f"{current_time}: RMC1 Вернулся на стартовую точку")
             print("RMC1 Вернулся на стартовую точку")
-            print("ArUco: null")
             time.sleep(0.1)
     
     logging.debug(f"{time.localtime}: МИССИЯ ЗАВЕРШИЛАСЬ")
