@@ -42,7 +42,6 @@ def main():
     back = Twist()
     back.linear.x = -0.1
 
-    print("MISSION_START")
     logging.debug(f"{time.localtime}: МИССИЯ НАЧАЛАСЬ")
 
     time.sleep(1)
