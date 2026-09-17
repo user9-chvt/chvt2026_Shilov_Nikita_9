@@ -66,6 +66,8 @@ def main():
     init_x_rmc1= 5.0
     init_y_rmc1 = 0.0
 
+    print("RMC2 в зоне поворота")
+
     init_pose = make_pose(nav, init_x_rmc1, init_y_rmc1)
     goal_pose = make_pose(nav, 1.0, 3.0)
 
