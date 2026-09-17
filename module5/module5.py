@@ -44,6 +44,7 @@ def main():
     print("MISSION_START")
     time.sleep(1)
     input("Введите нужный стеллаж для RMC2:")
+    input("Введите нужный инстурмент для RMC1:")
     print("Миссия РМС2 Началась...")
 
     TIME = 21
@@ -53,7 +54,7 @@ def main():
     try:
         endtime = time.monotonic() + TIME
         while time.monotonic() < endtime:
-            print("Ровер начал движение вперед")
+            print("RMC2 move forward...")
             publish_cmdvel.publish(forward)
             logging.debug(f"{current_time}: RMC2 movement to forward")
             time.sleep(0.1)
@@ -68,21 +69,24 @@ def main():
     init_pose = make_pose(nav, init_x_rmc1, init_y_rmc1)
     goal_pose = make_pose(nav, 1.0, 3.0)
 
-    input("Введите нужный инстурмент для RMC1:")
     print("RMC1 staring...")
 
     time.sleep(1)
     # nav.setInitialPose(init_pose)             # Задание исходной позиции
     # nav.waitUntilNav2Active()                 # Ждём, пока стек навигации полностью поднимется
 
-    print("RMC1 stop")
+    print("RMC1_stop")
+
+    print("waiting RMC1...")
+
+    time.sleep(5)
 
     print(f"RMC2 back home")
     logging.debug(f"{time.localtime}: movement_start")
     try:
         endtime = time.monotonic() + TIME
         while time.monotonic() < endtime:
-            print("Ровер начал движение вперед")
+            print("RMC2 move back...")
             publish_cmdvel.publish(back)
             logging.debug(f"{current_time}: RMC2 movement to forward")
             time.sleep(0.1)
