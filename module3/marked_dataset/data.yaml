@@ -1,0 +1,11 @@
+task: detect
+mode: train
+
+model: yolov11n
+data: ./classes.txt
+
+val: ./val
+train: ./train
+test: ./test
+
+names: ["Brash","Knive", "pliers"]

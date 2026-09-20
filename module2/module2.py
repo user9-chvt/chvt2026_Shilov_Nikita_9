@@ -1,0 +1,114 @@
+#primary imports
+import time
+import rclpy
+import threading
+from rclpy.node import Node
+
+#topics
+# from std_msgs import String
+# from geometry_msgs import Twist
+from rclpy.duration import Duration
+from geometry_msgs.msg import PoseStamped
+from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
+from geometry_msgs.msg import Twist
+
+# ROWS = 5
+# COLUMNS = 5
+# BLOCKED = {}
+
+# # функция поворота
+# # def yaw()
+
+# def make_pose(nav, x, y, yaw_z=0.0, yaw_w=1.0):
+#     # Собираем PoseStamped в системе координат map
+#     pose = PoseStamped()
+#     pose.header.frame_id = 'map'
+#     pose.header.stamp = nav.get_clock().now().to_msg()
+#     pose.pose.position.x = x
+#     pose.pose.position.y = y
+#     pose.pose.orientation.z = yaw_z
+#     pose.pose.orientation.w = yaw_w
+#     return pose
+
+
+# class rover(Node):
+#     def __init__(self):
+#         super().__init__('rover_2')
+
+# def main():
+#     rclpy.init()
+#     nav = BasicNavigator(namespace='/RMC2')
+#     init_pose = make_pose(nav, 0.0, 0.0)
+#     goal_pose = make_pose(nav, 2.0, 1.0)
+
+#     nav.setInitialPose(init_pose)
+#     nav.waitUntilNav2Active()
+
+#     time.sleep(3.0)
+
+#     nav.goToPose(goal_pose)
+#     while not nav.isTaskComplete():
+#         feedback = nav.getFeedback()
+#         if feedback and Duration.from_msg(feedback.navigation_time).nanoseconds / 1e9 > 600:
+#             nav.cancelTask()
+
+#     result = nav.getResult()
+#     if result == TaskResult.SUCCEEDED:
+#         print('Goal succeeded!')
+#     elif result == TaskResult.CANCELED:
+#         print('Goal was canceled!')
+#     elif result == TaskResult.FAILED:
+#         print('Goal failed!')
+
+#     nav.lifecycleShutdown()
+#     rclpy.shutdown()
+
+
+# if __name__ == '__main__':
+#     main()
+
+import logging
+from datetime import datetime
+
+current_time = datetime.now()
+
+logging.basicConfig(filename="logs_last_mission_forward.txt", level=logging.DEBUG)
+
+rclpy.init()
+node = rclpy.create_node("rover2")
+publish_cmdvel = node.create_publisher(Twist, "/RMC2/cmd_vel", 10)
+# sub_aruco = node.create_subscription("/RMC2/camera_bottom/aruco_id")
+
+forward = Twist()
+stop = Twist()
+forward.linear.x = 0.1
+
+def main():
+    print("Введите сколько секунд ровер должен проехать вперед(10сек = 1метр)")
+    # time.sleep(1)
+    TIME = int(input())
+    print("Началось выполение миссии")
+    print(f"movement_start")
+    logging.debug(f"{time.localtime}: movement_start")
+    try:
+        endtime = time.monotonic() + TIME
+        while time.monotonic() < endtime:
+            print("Ровер начал движение вперед")
+            publish_cmdvel.publish(forward)
+            logging.debug(f"{current_time}: RMC2 movement to forward")
+            time.sleep(0.1)
+    finally:
+        for _ in range(5):
+            publish_cmdvel.publish(stop)
+            time.sleep(0.1)
+
+if __name__ == '__main__':
+    main()
+
+print(f"Ровер прехал вперед и полностью остановлен и ждет приграды")
+print(f"Можно запускать скрипт на обратный путь, python3 module2/module2back.py")
+print(f"movement_stop")
+logging.debug(f"{current_time}: movement_stop")
+
+rclpy.shutdown()
+node.destroy_node()
